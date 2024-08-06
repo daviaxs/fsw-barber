@@ -7,6 +7,7 @@ import {
   quickSearchOptions,
 } from './utils/quick-search-options'
 import Image from 'next/image'
+import { BookingItem } from './utils/components/BookingItem'
 
 export default function Home() {
   return (
@@ -49,6 +50,10 @@ export default function Home() {
             alt="Agende nos melhores"
             fill
           />
+        </div>
+
+        <div className="mt-6">
+          <BookingItem />
         </div>
       </div>
     </>
