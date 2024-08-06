@@ -41,6 +41,15 @@ export default function Home() {
             </Button>
           ))}
         </div>
+
+        <div className="relative mt-6 h-[150px] w-full">
+          <Image
+            src={'/banner-agende-nos-melhores.png'}
+            className="rounded object-cover"
+            alt="Agende nos melhores"
+            fill
+          />
+        </div>
       </div>
     </>
   )
