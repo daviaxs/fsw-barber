@@ -15,13 +15,19 @@ export function PhoneItem({ phone }: PhoneItemProps) {
   }
 
   return (
-    <div className='flex justify-between'>
+    <div className="flex justify-between">
       <div className="flex items-center gap-2">
         <Smartphone />
         <p className="text-sm">{phone}</p>
       </div>
 
-      <Button variant={'outline'} size={'sm'} onClick={() => handleCopyPhoneClick(phone)}>Copiar</Button>
+      <Button
+        variant={'outline'}
+        size={'sm'}
+        onClick={() => handleCopyPhoneClick(phone)}
+      >
+        Copiar
+      </Button>
     </div>
   )
 }
