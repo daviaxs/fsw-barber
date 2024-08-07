@@ -8,8 +8,17 @@ import {
 } from './utils/quick-search-options'
 import Image from 'next/image'
 import { BookingItem } from './utils/components/BookingItem'
+import { db } from '@/shared/lib/prisma'
+import { BarbershopItem } from './utils/components/BarbershopItem'
 
-export default function Home() {
+export default async function Home() {
+  const barbershops = await db.barbershop.findMany({})
+  const popularBarbershops = await db.barbershop.findMany({
+    orderBy: {
+      name: 'desc',
+    },
+  })
+
   return (
     <>
       <Header />
@@ -54,6 +63,30 @@ export default function Home() {
 
         <div className="mt-6">
           <BookingItem />
+        </div>
+
+        <div className="mt-6">
+          <h2 className="mb-2 text-xs font-bold uppercase text-gray-400">
+            RECOMENDADOS
+          </h2>
+
+          <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+            {barbershops.map((barbershops) => (
+              <BarbershopItem key={barbershops.id} barbershop={barbershops} />
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <h2 className="mb-2 text-xs font-bold uppercase text-gray-400">
+            POPULARES
+          </h2>
+
+          <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+            {popularBarbershops.map((barbershops) => (
+              <BarbershopItem key={barbershops.id} barbershop={barbershops} />
+            ))}
+          </div>
         </div>
       </div>
     </>
