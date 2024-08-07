@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ServiceItem } from './utils/components/ServiceItem'
+import { PhoneItem } from './utils/components/PhoneItem'
 
 interface BarbershopPageParams {
   params: {
@@ -88,6 +89,12 @@ export default async function BarbershopPage({ params }: BarbershopPageParams) {
             <ServiceItem key={service.id} service={service} />
           ))}
         </div>
+      </div>
+
+      <div className='space-y-3 p-5'>
+        {barbershop.phones.map((phone) => (
+          <PhoneItem key={phone} phone={phone} />
+        ))}
       </div>
     </div>
   )
