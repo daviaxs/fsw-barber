@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
 import './globals.css'
-import { Footer } from '@/shared/components/header/Footer'
+import { Footer } from '@/shared/components/footer/Footer'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className="dark">
-      <body className={nunito.className}>
+      <body className={`flex flex-col justify-between ${nunito.className}`}>
         {children}
         <Footer />
       </body>

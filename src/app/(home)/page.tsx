@@ -20,7 +20,7 @@ export default async function Home() {
   })
 
   return (
-    <>
+    <div>
       <Header />
 
       <div className="px-4 py-6">
@@ -89,6 +89,6 @@ export default async function Home() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
