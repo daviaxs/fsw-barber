@@ -3,6 +3,7 @@ import { Nunito } from 'next/font/google'
 import './globals.css'
 import { Footer } from '@/shared/components/footer/Footer'
 import { Toaster } from '@/shared/components/ui/sonner'
+import { AuthProvider } from './providers/Auth'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -19,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang="pt-br" className="dark">
       <body className={`flex flex-col justify-between ${nunito.className}`}>
-        {children}
-        <Toaster />
-        <Footer />
+        <AuthProvider>
+          {children}
+          <Toaster />
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   )
