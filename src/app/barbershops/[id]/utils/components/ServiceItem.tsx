@@ -105,7 +105,7 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
 
       await createBooking({
         serviceId: service.id,
-        userId: 'clzlmtng50000xz31wz0trlc6',
+        userId: (data?.user as any).id,
         date: newDate,
       })
 
@@ -165,7 +165,7 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
                 Reservar
               </Button>
 
-              <SheetContent className="px-0 max-sm:w-full">
+              <SheetContent className="overflow-y-auto px-0 max-sm:w-full [&::-webkit-scrollbar]:hidden">
                 <SheetHeader>
                   <SheetTitle>Fazer Reserva</SheetTitle>
                 </SheetHeader>
