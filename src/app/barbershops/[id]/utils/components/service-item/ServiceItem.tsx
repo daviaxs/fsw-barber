@@ -15,7 +15,7 @@ import { Barbershop, BarbershopService, Booking } from '@prisma/client'
 import Image from 'next/image'
 import { ptBR } from 'date-fns/locale'
 import { useEffect, useState } from 'react'
-import { format, set } from 'date-fns'
+import { addDays, format, set } from 'date-fns'
 import { createBooking } from '@/shared/actions/create-booking'
 import { toast } from 'sonner'
 import { useSession } from 'next-auth/react'
@@ -149,6 +149,7 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
                     locale={ptBR}
                     selected={selectedDay}
                     onSelect={handleDateSelect}
+                    fromDate={addDays(new Date(), 0)}
                     styles={{
                       head_cell: {
                         width: '100%',
