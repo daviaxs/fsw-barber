@@ -95,16 +95,18 @@ export function Sidebar() {
         ))}
       </div>
 
-      <div className="flex flex-col items-center gap-3 py-5">
-        <Button
-          className="w-full justify-start gap-2"
-          variant={'ghost'}
-          onClick={handleLogout}
-        >
-          <LogInIcon size={18} />
-          Sair da conta
-        </Button>
-      </div>
+      {data?.user && (
+        <div className="flex flex-col items-center gap-3 py-5">
+          <Button
+            className="w-full justify-start gap-2"
+            variant={'ghost'}
+            onClick={handleLogout}
+          >
+            <LogInIcon size={18} />
+            Sair da conta
+          </Button>
+        </div>
+      )}
     </SheetContent>
   )
 }
