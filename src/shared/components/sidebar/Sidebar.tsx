@@ -7,18 +7,11 @@ import Link from 'next/link'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { Button } from '../ui/button'
 import Image from 'next/image'
-import { signIn, signOut, useSession } from 'next-auth/react'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '../ui/dialog'
+import { signOut, useSession } from 'next-auth/react'
+import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
+import { SignInDialog } from '../sign-in-dialog/SignInDialog'
 
 export function Sidebar() {
-  const handleLoginWithGoogle = () => signIn('google')
   const handleLogout = () => signOut()
   const { data } = useSession()
 
@@ -54,28 +47,7 @@ export function Sidebar() {
             </DialogTrigger>
 
             <DialogContent className="w-[90%] rounded-lg">
-              <DialogHeader>
-                <DialogTitle className="text-center">
-                  Faça login na plataforma
-                </DialogTitle>
-                <DialogDescription className="text-center">
-                  Conecte-se usando sua conta do Google
-                </DialogDescription>
-              </DialogHeader>
-
-              <Button
-                variant={'outline'}
-                className="gap-2 font-bold"
-                onClick={handleLoginWithGoogle}
-              >
-                <Image
-                  src={'./google.svg'}
-                  alt="google"
-                  height={18}
-                  width={18}
-                />
-                Google
-              </Button>
+              <SignInDialog />
             </DialogContent>
           </Dialog>
         </div>
