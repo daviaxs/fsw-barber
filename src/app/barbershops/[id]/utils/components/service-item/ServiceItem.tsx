@@ -14,12 +14,13 @@ import {
 import { Barbershop, BarbershopService, Booking } from '@prisma/client'
 import Image from 'next/image'
 import { ptBR } from 'date-fns/locale'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { format, set } from 'date-fns'
 import { createBooking } from '@/shared/actions/create-booking'
 import { toast } from 'sonner'
 import { useSession } from 'next-auth/react'
 import { getTimeList } from './utils/get-time-list'
+import { getBookings } from '@/shared/actions/get-bookings'
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -34,6 +35,20 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
   const [selectedTime, setSelectedTime] = useState<string | undefined>(
     undefined,
   )
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      if (!selectedDay) return
+
+      const bookings = await getBookings({
+        serviceId: service.id,
+        date: selectedDay,
+      })
+      setDayBookings(bookings)
+    }
+
+    fetchBookings()
+  }, [selectedDay, service.id])
 
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDay(date)
