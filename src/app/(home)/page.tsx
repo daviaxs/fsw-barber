@@ -5,14 +5,16 @@ import {
   quickSearchOptions,
 } from './utils/quick-search-options'
 import Image from 'next/image'
-import { BookingItem } from './utils/components/BookingItem'
 import { db } from '@/shared/lib/prisma'
 import { BarbershopItem } from './utils/components/BarbershopItem'
 import { Search } from '@/shared/components/search/Search'
 import Link from 'next/link'
+import { BookingItem } from '@/shared/components/booking-item/BookingItem'
+import { getConfirmedBookings } from '@/shared/actions/get-confirmed-bookings'
 
 export default async function Home() {
   const barbershops = await db.barbershop.findMany({})
+  const confirmedBookings = await getConfirmedBookings()
   const popularBarbershops = await db.barbershop.findMany({
     orderBy: {
       name: 'desc',
@@ -64,9 +66,21 @@ export default async function Home() {
           />
         </div>
 
-        <div className="mt-6">
-          <BookingItem />
-        </div>
+        {confirmedBookings.length > 0 && (
+          <>
+            <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+              Agendamentos
+            </h2>
+            <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+              {confirmedBookings.map((booking) => (
+                <BookingItem
+                  key={booking.id}
+                  booking={JSON.parse(JSON.stringify(booking))}
+                />
+              ))}
+            </div>
+          </>
+        )}
 
         <div className="mt-6">
           <h2 className="mb-2 text-xs font-bold uppercase text-gray-400">
