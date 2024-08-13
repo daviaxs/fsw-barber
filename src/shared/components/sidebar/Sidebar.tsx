@@ -67,10 +67,18 @@ export function Sidebar() {
           </Button>
         </SheetClose>
 
-        <Button className="w-full justify-start gap-2" variant={'ghost'}>
-          <CalendarIcon size={18} />
-          Agendamentos
-        </Button>
+        <SheetClose asChild>
+          <Button
+            className="w-full justify-start gap-2"
+            variant={'ghost'}
+            asChild
+          >
+            <Link href={'/bookings'}>
+              <CalendarIcon size={18} />
+              Agendamentos
+            </Link>
+          </Button>
+        </SheetClose>
       </div>
 
       <div className="flex flex-col items-center gap-3 border-b border-solid py-5">
