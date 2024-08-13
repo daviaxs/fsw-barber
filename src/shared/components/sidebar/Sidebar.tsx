@@ -2,7 +2,7 @@
 
 import { CalendarIcon, HomeIcon, LogInIcon } from 'lucide-react'
 import { SheetClose, SheetContent, SheetHeader, SheetTitle } from '../ui/sheet'
-import { quickSearchOptions } from '@/app/(home)/utils/quick-search-options'
+import { quickSearchOptions } from '@/shared/utils/quick-search-options'
 import Link from 'next/link'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { Button } from '../ui/button'

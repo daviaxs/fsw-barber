@@ -13,7 +13,7 @@ import {
 } from '../ui/sheet'
 import Image from 'next/image'
 import { BookingSummary } from '../booking-summary/BookingSummary'
-import { PhoneItem } from '@/app/barbershops/[id]/utils/components/PhoneItem'
+import { PhoneItem } from '@/app/barbershops/[id]/components/PhoneItem'
 
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{

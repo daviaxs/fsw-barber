@@ -4,10 +4,10 @@ import { ChevronLeft, MapPin, Menu, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { PhoneItem } from './utils/components/PhoneItem'
+import { PhoneItem } from './components/PhoneItem'
 import { Sheet, SheetTrigger } from '@/shared/components/ui/sheet'
 import { Sidebar } from '@/shared/components/sidebar/Sidebar'
-import { ServiceItem } from './utils/components/service-item/ServiceItem'
+import { ServiceItem } from './components/service-item/ServiceItem'
 
 interface BarbershopPageParams {
   params: {

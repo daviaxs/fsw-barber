@@ -1,12 +1,9 @@
 import { Header } from '@/shared/components/header/Header'
 import { Button } from '@/shared/components/ui/button'
-import {
-  QuickSearchOption,
-  quickSearchOptions,
-} from './utils/quick-search-options'
+import { quickSearchOptions, QuickSearchOptionParams } from '@/shared/utils/quick-search-options'
 import Image from 'next/image'
 import { db } from '@/shared/lib/prisma'
-import { BarbershopItem } from './utils/components/BarbershopItem'
+import { BarbershopItem } from './components/BarbershopItem'
 import { Search } from '@/shared/components/search/Search'
 import Link from 'next/link'
 import { BookingItem } from '@/shared/components/booking-item/BookingItem'
@@ -36,7 +33,7 @@ export default async function Home() {
         </div>
 
         <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
-          {quickSearchOptions.map((option: QuickSearchOption) => (
+          {quickSearchOptions.map((option: QuickSearchOptionParams) => (
             <Button
               key={option.title}
               variant={'secondary'}
