@@ -1,6 +1,9 @@
 import { Header } from '@/shared/components/header/Header'
 import { Button } from '@/shared/components/ui/button'
-import { quickSearchOptions, QuickSearchOptionParams } from '@/shared/utils/quick-search-options'
+import {
+  quickSearchOptions,
+  QuickSearchOptionParams,
+} from '@/shared/utils/quick-search-options'
 import Image from 'next/image'
 import { db } from '@/shared/lib/prisma'
 import { BarbershopItem } from './components/BarbershopItem'
@@ -8,8 +11,13 @@ import { Search } from '@/shared/components/search/Search'
 import Link from 'next/link'
 import { BookingItem } from '@/shared/components/booking-item/BookingItem'
 import { getConfirmedBookings } from '@/shared/actions/get-confirmed-bookings'
+import { getServerSession } from 'next-auth'
+import { authOption } from '@/shared/lib/auth'
+import { format } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 
 export default async function Home() {
+  const session = await getServerSession(authOption)
   const barbershops = await db.barbershop.findMany({})
   const confirmedBookings = await getConfirmedBookings()
   const popularBarbershops = await db.barbershop.findMany({
@@ -24,8 +32,23 @@ export default async function Home() {
 
       <div className="px-4 py-6">
         <div>
-          <h1 className="text-xl font-bold">Olá, Davi!</h1>
-          <p className="text-[0.7rem] text-gray-300">Sexta, 2 de Fevereiro</p>
+          <h1 className="text-xl font-bold">
+            Olá,{' '}
+            <span className="lowercase">
+              {session?.user ? session.user.name : 'bem vindo'}!
+            </span>
+          </h1>
+          <p className="text-[0.7rem] text-gray-300">
+            <span className="capitalize">
+              {format(new Date(), 'EEEE, dd', { locale: ptBR })}
+            </span>
+
+            <span>&nbsp;de&nbsp;</span>
+
+            <span className="capitalize">
+              {format(new Date(), 'MMMM', { locale: ptBR })}
+            </span>
+          </p>
         </div>
 
         <div className="mt-6">
