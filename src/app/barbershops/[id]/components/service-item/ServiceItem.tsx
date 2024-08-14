@@ -14,7 +14,7 @@ import {
 import { Barbershop, BarbershopService, Booking } from '@prisma/client'
 import Image from 'next/image'
 import { ptBR } from 'date-fns/locale'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { addDays, set } from 'date-fns'
 import { createBooking } from '@/shared/actions/create-booking'
 import { toast } from 'sonner'
@@ -101,6 +101,12 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
     return setLoginDialogIsOpen(true)
   }
 
+  const timeList = useMemo(() => {
+    if (!selectedDay) return []
+
+    return getTimeList({ bookings: dayBookings, selectedDay })
+  }, [dayBookings, selectedDay])
+
   return (
     <>
       <Card className="">
@@ -182,18 +188,24 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
 
                   {selectedDay && (
                     <div className="flex gap-3 overflow-x-auto border-b border-solid p-5 [&::-webkit-scrollbar]:hidden">
-                      {getTimeList(dayBookings).map((time) => (
-                        <Button
-                          key={time}
-                          className="rounded-full"
-                          variant={
-                            selectedTime === time ? 'default' : 'outline'
-                          }
-                          onClick={() => handleTimeSelect(time)}
-                        >
-                          {time}
-                        </Button>
-                      ))}
+                      {timeList.length > 0 ? (
+                        timeList.map((time) => (
+                          <Button
+                            key={time}
+                            className="rounded-full"
+                            variant={
+                              selectedTime === time ? 'default' : 'outline'
+                            }
+                            onClick={() => handleTimeSelect(time)}
+                          >
+                            {time}
+                          </Button>
+                        ))
+                      ) : (
+                        <p className="text-xs">
+                          Não há horários disponíveis para este dia.
+                        </p>
+                      )}
                     </div>
                   )}
 
