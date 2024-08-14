@@ -1,3 +1,5 @@
+'use client'
+
 import { Avatar, AvatarImage } from '@/shared/components/ui/avatar'
 import { Badge } from '@/shared/components/ui/badge'
 import { Card, CardContent } from '@/shared/components/ui/card'
@@ -6,7 +8,9 @@ import { format, isFuture } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import {
   Sheet,
+  SheetClose,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -14,6 +18,20 @@ import {
 import Image from 'next/image'
 import { BookingSummary } from '../booking-summary/BookingSummary'
 import { PhoneItem } from '@/app/barbershops/[id]/components/PhoneItem'
+import { Button } from '../ui/button'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '../ui/dialog'
+import { useState } from 'react'
+import { deleteBooking } from '@/shared/actions/delete-booking'
+import { toast } from 'sonner'
 
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
@@ -28,13 +46,30 @@ interface BookingItemProps {
 }
 
 export function BookingItem({ booking }: BookingItemProps) {
+  const [isSheetOpen, setIsSheetOpen] = useState(false)
+
   const {
     service: { barbershop },
   } = booking
   const isConcluded = isFuture(booking.date)
 
+  async function handleDeleteBooking() {
+    try {
+      await deleteBooking(booking.id)
+      setIsSheetOpen(false)
+      toast.success('Reserva cancelada com sucesso')
+    } catch (error) {
+      console.error(error)
+      toast.error('Erro ao cancelar reserva. Tente novamente.')
+    }
+  }
+
+  function handleSheetOpenChange(isOpen: boolean) {
+    setIsSheetOpen(isOpen)
+  }
+
   return (
-    <Sheet>
+    <Sheet open={isSheetOpen} onOpenChange={handleSheetOpenChange}>
       <SheetTrigger className="w-full min-w-[90%]">
         <Card className="h-full min-w-[90%]">
           <CardContent className="flex h-full justify-between p-0">
@@ -79,7 +114,7 @@ export function BookingItem({ booking }: BookingItemProps) {
           <SheetTitle className="text-left">Informacões da Reserva</SheetTitle>
         </SheetHeader>
 
-        <div className="p-5">
+        <div className="border-b border-solid p-5">
           <div className="relative mt-6 flex h-[180px] w-full items-end">
             <Image
               src={'/map.png'}
@@ -125,6 +160,53 @@ export function BookingItem({ booking }: BookingItemProps) {
             </div>
           </div>
         </div>
+
+        <SheetFooter className="p-5">
+          <SheetClose asChild>
+            <Button variant={'secondary'} className="w-full">
+              Fechar
+            </Button>
+          </SheetClose>
+
+          {isConcluded && (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant={'destructive'} className="w-full">
+                  Cancelar reserva
+                </Button>
+              </DialogTrigger>
+
+              <DialogContent className="w-[90%]">
+                <DialogHeader>
+                  <DialogTitle>Cancelar reserva?</DialogTitle>
+
+                  <DialogDescription>
+                    Tem certeza que deseja cancelar a reserva? Essa ação será
+                    irreversível.
+                  </DialogDescription>
+                </DialogHeader>
+
+                <DialogFooter className="flex gap-3">
+                  <DialogClose asChild>
+                    <Button variant={'secondary'} className="w-full">
+                      Voltar
+                    </Button>
+                  </DialogClose>
+
+                  <DialogClose asChild>
+                    <Button
+                      variant={'destructive'}
+                      className="w-full"
+                      onClick={handleDeleteBooking}
+                    >
+                      Confirmar
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          )}
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   )
