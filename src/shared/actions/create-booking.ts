@@ -1,9 +1,9 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { db } from '../lib/prisma'
+import { db } from '../../app/lib/prisma'
 import { getServerSession } from 'next-auth'
-import { authOption } from '../lib/auth'
+import { authOption } from '../../app/lib/auth'
 
 interface CreateBookingParams {
   serviceId: string

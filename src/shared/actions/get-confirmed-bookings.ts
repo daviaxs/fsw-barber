@@ -1,8 +1,8 @@
 'use server'
 
 import { getServerSession } from 'next-auth'
-import { authOption } from '../lib/auth'
-import { db } from '../lib/prisma'
+import { authOption } from '../../app/lib/auth'
+import { db } from '../../app/lib/prisma'
 
 export const getConfirmedBookings = async () => {
   const session = await getServerSession(authOption)

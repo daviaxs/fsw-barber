@@ -1,5 +1,5 @@
 import { Header } from '@/shared/components/header/Header'
-import { db } from '@/shared/lib/prisma'
+import { db } from '@/app/lib/prisma'
 import { BarbershopItem } from '../(home)/components/BarbershopItem'
 import { Search } from '@/shared/components/search/Search'
 

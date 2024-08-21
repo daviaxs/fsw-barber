@@ -5,14 +5,14 @@ import {
   QuickSearchOptionParams,
 } from '@/shared/utils/quick-search-options'
 import Image from 'next/image'
-import { db } from '@/shared/lib/prisma'
+import { db } from '@/app/lib/prisma'
 import { BarbershopItem } from './components/BarbershopItem'
 import { Search } from '@/shared/components/search/Search'
 import Link from 'next/link'
 import { BookingItem } from '@/shared/components/booking-item/BookingItem'
 import { getConfirmedBookings } from '@/shared/actions/get-confirmed-bookings'
 import { getServerSession } from 'next-auth'
-import { authOption } from '@/shared/lib/auth'
+import { authOption } from '@/app/lib/auth'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 

@@ -2,7 +2,7 @@ import { getConcludedBookings } from '@/shared/actions/get-concluded-bookings'
 import { getConfirmedBookings } from '@/shared/actions/get-confirmed-bookings'
 import { BookingItem } from '@/shared/components/booking-item/BookingItem'
 import { Header } from '@/shared/components/header/Header'
-import { authOption } from '@/shared/lib/auth'
+import { authOption } from '@/app/lib/auth'
 import { getServerSession } from 'next-auth'
 import { notFound } from 'next/navigation'
 

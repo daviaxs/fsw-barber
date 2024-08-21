@@ -1,7 +1,7 @@
 'use server'
 
 import { endOfDay, startOfDay } from 'date-fns'
-import { db } from '../lib/prisma'
+import { db } from '../../app/lib/prisma'
 
 interface GetBookingsParams {
   serviceId: string

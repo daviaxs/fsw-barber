@@ -1,5 +1,5 @@
 import { Button } from '@/shared/components/ui/button'
-import { db } from '@/shared/lib/prisma'
+import { db } from '@/app/lib/prisma'
 import { ChevronLeft, MapPin, Menu, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
